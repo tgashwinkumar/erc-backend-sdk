@@ -1,10 +1,12 @@
 import { Router } from "express";
 import Event from "../models/Event.js";
 import fetch from "node-fetch";
+import User from "../models/User.js";
 
 const router = Router();
 
 router.get("/", async (req, res) => {
+  const users = await User.find({});
   fetch(
     "https://api-ropsten.etherscan.io/api?module=account&action=txlist&address=0xE3E8b36dCEA6ABa09cAdca6Cb06724D6dC9C5E1d&sort=asc&apikey=384KZC5YXKS5VUWCNGFZR7G8H7UTR26S3G",
     {},
@@ -20,10 +22,14 @@ router.get("/", async (req, res) => {
         .then((resp) => resp.json())
         .then((data2) => {
           const final_data = data1.result.map((data, idx) => {
+            const user = users.find(
+              (user) => user.wallet_address.toLowerCase() === data.from
+            );
             return {
               timeStamp: data.timeStamp,
               from: data.from,
               to: data.to,
+              fromRn: user ? user.rollno : "",
               data: data2.result[idx].data,
               address: data2.result[idx].address,
             };
