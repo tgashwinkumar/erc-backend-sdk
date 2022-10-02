@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/address/:token", async (req, res) => {
-  const user = await User.findOne({ wallet_address: req.params.token });
+  const user = await User.findOne({ wallet_address: req.params.token.toLowerCase() });
   res.send(user);
 });
 
@@ -22,6 +22,7 @@ router.post("/add", async (req, res) => {
     const user = new User({
       ...req.body,
       rollno: req.body.rollno.toLowerCase(),
+      wallet_address: req.body.wallet_address.toLowerCase(),
     });
     await user.save();
     res
