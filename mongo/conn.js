@@ -2,7 +2,7 @@
 import mongoose from "mongoose";
 
 const connectionString =
-  "mongodb+srv://tgashwinkumar:Aa9659604838@erc-backend-cluster.pw2jgq2.mongodb.net/?retryWrites=true&w=majority";
+  "mongodb+srv://jeyam:12345@cluster0.akbk8ky.mongodb.net/?retryWrites=true&w=majority";
 // const client = new MongoClient(connectionString, {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
